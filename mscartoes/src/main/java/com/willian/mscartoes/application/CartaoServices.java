@@ -1,7 +1,7 @@
 package com.willian.mscartoes.application;
 
 import com.willian.mscartoes.domain.Cartao;
-import com.willian.mscartoes.infra.CartaoRepository;
+import com.willian.mscartoes.infra.repository.CartaoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

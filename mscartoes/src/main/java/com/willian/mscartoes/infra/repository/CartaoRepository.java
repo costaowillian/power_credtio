@@ -1,4 +1,4 @@
-package com.willian.mscartoes.infra;
+package com.willian.mscartoes.infra.repository;
 
 import com.willian.mscartoes.domain.Cartao;
 import org.springframework.data.jpa.repository.JpaRepository;
