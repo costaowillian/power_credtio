@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/cartoes")
@@ -32,6 +33,12 @@ public class CartoesController {
                 .buildAndExpand(cartao.getId()).toUri();
 
         return ResponseEntity.created(uri).body(cartao);
+    }
+
+    @GetMapping(params = "renda", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Cartao>> getCartoesPorRenda(@RequestParam("renda") Long renda) {
+        List<Cartao> cartaoList = services.getCartoesRendaMenorIgual(renda);
+        return ResponseEntity.ok().body(cartaoList);
     }
 
 }
