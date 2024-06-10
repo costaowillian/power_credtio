@@ -10,10 +10,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/clientes")
 public class ClientesController {
+
+    private Logger log = Logger.getLogger(ClientesController.class.getName());
 
     @Autowired
     private ClienteServices clienteServices;
@@ -38,11 +41,13 @@ public class ClientesController {
 
     @GetMapping(params = "cpf", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cliente> dadosCliente(@RequestParam("cpf") String cpf) {
-        Optional<Cliente> cliente =  clienteServices.getByCpf(cpf);
-        if(cliente.isPresent()) {
-            return ResponseEntity.ok().body(cliente.get());
+        log.info("CPF: " + cpf);
+        Optional<Cliente> cliente = clienteServices.getByCpf(cpf);
+        if (cliente.isPresent()) {
+            return ResponseEntity.ok(cliente.get());
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
 }
