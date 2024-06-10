@@ -1,4 +1,4 @@
-package com.willian.mscartoes.application;
+package com.willian.mscartoes.application.services;
 
 import com.willian.mscartoes.domain.Cartao;
 import com.willian.mscartoes.infra.repository.CartaoRepository;
