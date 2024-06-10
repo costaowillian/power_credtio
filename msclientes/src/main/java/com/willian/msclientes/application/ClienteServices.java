@@ -21,11 +21,7 @@ public class ClienteServices {
     }
 
     public Optional<Cliente> getByCpf(String cpf) {
-        Optional<Cliente> cliente = clienteRepository.findByCpf(cpf);
-        if(cliente.isPresent()) {
-            return Optional.of(cliente.get());
-        }
-        return null;
+        return clienteRepository.findByCpf(cpf);
     }
 
 }
