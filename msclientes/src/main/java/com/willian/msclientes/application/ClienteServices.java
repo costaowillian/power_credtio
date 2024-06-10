@@ -4,6 +4,7 @@ import com.willian.msclientes.domain.Cliente;
 import com.willian.msclientes.infra.repository.ClienteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,7 +21,11 @@ public class ClienteServices {
     }
 
     public Optional<Cliente> getByCpf(String cpf) {
-        return clienteRepository.findByCpf(cpf);
+        Optional<Cliente> cliente = clienteRepository.findByCpf(cpf);
+        if(cliente.isPresent()) {
+            return Optional.of(cliente.get());
+        }
+        return null;
     }
 
 }
