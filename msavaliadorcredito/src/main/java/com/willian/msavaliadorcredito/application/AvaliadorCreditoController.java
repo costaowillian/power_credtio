@@ -1,9 +1,8 @@
 package com.willian.msavaliadorcredito.application;
 
-import com.willian.msavaliadorcredito.domain.dto.DadosAvaliacao;
-import com.willian.msavaliadorcredito.domain.dto.RetornoAvaliacaoCliente;
-import com.willian.msavaliadorcredito.domain.dto.SituacaoCliente;
+import com.willian.msavaliadorcredito.domain.dto.*;
 import com.willian.msavaliadorcredito.domain.dto.exceptions.ErroComunicacaoMicroserviceException;
+import com.willian.msavaliadorcredito.domain.dto.exceptions.ErrorSolicitacaoCartaoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -46,6 +45,16 @@ public class AvaliadorCreditoController {
             return ResponseEntity.status(HttpStatus.resolve(e.getStatus())).body(e.getMessage());
         } catch (NullPointerException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "solicitar-cartao", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity solicitarCartao(@RequestBody DadosSolicitacaoEmissaoCartao dados) {
+        try {
+            ProtocoloSolicitacaoCartao protocoloSolicitacaoCartao = avaliadorCreditoService.solicitarEmissaoCartao(dados);
+            return ResponseEntity.ok().body(protocoloSolicitacaoCartao);
+        } catch (ErrorSolicitacaoCartaoException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 }
