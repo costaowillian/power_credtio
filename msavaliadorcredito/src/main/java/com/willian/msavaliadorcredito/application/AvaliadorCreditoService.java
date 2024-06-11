@@ -2,8 +2,10 @@ package com.willian.msavaliadorcredito.application;
 
 import com.willian.msavaliadorcredito.domain.dto.exceptions.ErroComunicacaoMicroserviceException;
 import com.willian.msavaliadorcredito.domain.dto.*;
+import com.willian.msavaliadorcredito.domain.dto.exceptions.ErrorSolicitacaoCartaoException;
 import com.willian.msavaliadorcredito.infra.repository.clients.CartoesResourceClient;
 import com.willian.msavaliadorcredito.infra.repository.clients.ClienteResourceClient;
+import com.willian.msavaliadorcredito.infrea.mqueue.SolicitacaoEmissaoCartaoPublisher;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +25,9 @@ public class AvaliadorCreditoService {
 
     @Autowired
     private CartoesResourceClient resourceCartoes;
+
+    @Autowired
+    private SolicitacaoEmissaoCartaoPublisher cartaoPublisher;
 
 
     public SituacaoCliente obterSituacaoCliente(String cpf) throws ErroComunicacaoMicroserviceException {
@@ -99,5 +105,14 @@ public class AvaliadorCreditoService {
         return cartoesAprovados;
     }
 
+    public ProtocoloSolicitacaoCartao solicitarEmissaoCartao(DadosSolicitacaoEmissaoCartao dados) {
+        try {
+            cartaoPublisher.solicitarCartao(dados);
+            String protocolo = UUID.randomUUID().toString();
+            return new ProtocoloSolicitacaoCartao(protocolo);
+        } catch (Exception e) {
+            throw new ErrorSolicitacaoCartaoException(e.getMessage());
+        }
+    }
 
 }
