@@ -29,26 +29,26 @@ public class AvaliadorCreditoService {
         SituacaoCliente situacaoCliente = new SituacaoCliente();
         try {
             ResponseEntity<DadosCliente> dadosClienteResponse = resourceClient.dadosCliente(cpf);
-            ResponseEntity<List<CartaoCliente>> dadosCartoesResponse = resourceCartoes.getCartoesPorCliente(cpf);
-
-            situacaoCliente.setCartoes(dadosCartoesResponse.getBody());
             situacaoCliente.setCliente(dadosClienteResponse.getBody());
+
+            ResponseEntity<List<CartaoCliente>> dadosCartoesResponse = resourceCartoes.getCartoesPorCliente(cpf);
+            situacaoCliente.setCartoes(dadosCartoesResponse.getBody());
+
+            return situacaoCliente;
         } catch (FeignException.FeignClientException e) {
             int status = e.status();
             String requestUrl = e.request().url();
 
             if (HttpStatus.NOT_FOUND.value() == status) {
-                if (requestUrl.contains("/cartoes")) {
-                    throw new NullPointerException("Cartões não encontrados para o CPF informado");
-                } else if (requestUrl.contains("/dadosCliente")) {
-                    throw new NullPointerException("Nenhum cartão encontrado para o CPF informado");
+                if (requestUrl.contains("/clientes")) {
+                    throw new NullPointerException("Nenhum cliente cadastrado para o CPF informado");
+                } else if (requestUrl.contains("/cartoes")) {
+                    situacaoCliente.setCartoes(List.of());
+                    return situacaoCliente;
                 }
-            } else {
-                throw new ErroComunicacaoMicroserviceException("Erro ao realizar requisição: " + e.getMessage(), e.status());
             }
+            throw new ErroComunicacaoMicroserviceException("Erro ao realizar requisição: " + e.getMessage(), e.status());
         }
-
-        return situacaoCliente;
     }
 
 }
