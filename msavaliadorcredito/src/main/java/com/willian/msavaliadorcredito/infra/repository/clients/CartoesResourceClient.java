@@ -1,5 +1,6 @@
 package com.willian.msavaliadorcredito.infra.repository.clients;
 
+import com.willian.msavaliadorcredito.application.dto.Cartao;
 import com.willian.msavaliadorcredito.application.dto.CartaoCliente;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -13,4 +14,7 @@ public interface CartoesResourceClient {
 
     @GetMapping(params = "cpf")
     ResponseEntity<List<CartaoCliente>> getCartoesPorCliente(@RequestParam("cpf") String cpf);
+
+    @GetMapping(params = "renda")
+    ResponseEntity<List<Cartao>> getCartoesPorRenda(@RequestParam("renda") Long renda);
 }
