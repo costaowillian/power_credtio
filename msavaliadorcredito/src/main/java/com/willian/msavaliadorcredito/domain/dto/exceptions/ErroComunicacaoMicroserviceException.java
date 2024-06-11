@@ -1,4 +1,4 @@
-package com.willian.msavaliadorcredito.application.exceptions;
+package com.willian.msavaliadorcredito.domain.dto.exceptions;
 
 public class ErroComunicacaoMicroserviceException extends Exception{
     private Integer status;

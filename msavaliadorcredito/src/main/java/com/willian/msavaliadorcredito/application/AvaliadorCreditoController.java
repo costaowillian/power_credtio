@@ -1,10 +1,9 @@
 package com.willian.msavaliadorcredito.application;
 
-import com.willian.msavaliadorcredito.application.dto.DadosAvaliacao;
-import com.willian.msavaliadorcredito.application.dto.RetornoAvaliacaoCliente;
-import com.willian.msavaliadorcredito.application.dto.SituacaoCliente;
-import com.willian.msavaliadorcredito.application.exceptions.ErroComunicacaoMicroserviceException;
-import com.willian.msavaliadorcredito.infra.repository.AvaliadorCreditoService;
+import com.willian.msavaliadorcredito.domain.dto.DadosAvaliacao;
+import com.willian.msavaliadorcredito.domain.dto.RetornoAvaliacaoCliente;
+import com.willian.msavaliadorcredito.domain.dto.SituacaoCliente;
+import com.willian.msavaliadorcredito.domain.dto.exceptions.ErroComunicacaoMicroserviceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

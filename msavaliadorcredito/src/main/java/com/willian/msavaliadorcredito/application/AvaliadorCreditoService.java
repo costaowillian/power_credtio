@@ -1,7 +1,7 @@
-package com.willian.msavaliadorcredito.infra.repository;
+package com.willian.msavaliadorcredito.application;
 
-import com.willian.msavaliadorcredito.application.dto.*;
-import com.willian.msavaliadorcredito.application.exceptions.ErroComunicacaoMicroserviceException;
+import com.willian.msavaliadorcredito.domain.dto.exceptions.ErroComunicacaoMicroserviceException;
+import com.willian.msavaliadorcredito.domain.dto.*;
 import com.willian.msavaliadorcredito.infra.repository.clients.CartoesResourceClient;
 import com.willian.msavaliadorcredito.infra.repository.clients.ClienteResourceClient;
 import feign.FeignException;
@@ -59,7 +59,7 @@ public class AvaliadorCreditoService {
 
             List<Cartao> listCartoes = cartoesResponse.getBody();
             DadosCliente dadosCliente = dadosClienteResponse.getBody();
-            
+
             assert listCartoes != null;
             List<CartaoAprovado> cartoesAprovados = getCartaoAprovados(listCartoes, dadosCliente);
 

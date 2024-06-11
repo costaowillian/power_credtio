@@ -1,4 +1,4 @@
-package com.willian.msavaliadorcredito.application.dto;
+package com.willian.msavaliadorcredito.domain.dto;
 
 import java.io.Serializable;
 import java.util.List;

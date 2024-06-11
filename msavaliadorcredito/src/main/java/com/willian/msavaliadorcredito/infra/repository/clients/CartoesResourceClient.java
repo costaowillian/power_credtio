@@ -1,7 +1,7 @@
 package com.willian.msavaliadorcredito.infra.repository.clients;
 
-import com.willian.msavaliadorcredito.application.dto.Cartao;
-import com.willian.msavaliadorcredito.application.dto.CartaoCliente;
+import com.willian.msavaliadorcredito.domain.dto.Cartao;
+import com.willian.msavaliadorcredito.domain.dto.CartaoCliente;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
